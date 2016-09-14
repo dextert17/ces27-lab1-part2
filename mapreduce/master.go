@@ -80,6 +80,14 @@ func (master *Master) handleFailingWorkers() {
 	/////////////////////////
 	// YOUR CODE GOES HERE //
 	/////////////////////////
+
+	for elem := range master.failedWorkerChan {
+		id := elem.id
+		master.workersMutex.Lock()
+		delete(master.workers, id)
+		master.workersMutex.Unlock()
+	}
+
 }
 
 // Handle a single connection until it's done, then closes it.
